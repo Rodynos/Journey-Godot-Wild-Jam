@@ -1,9 +1,5 @@
 extends CharacterBody2D
 
-const SPEED = 80
-
-var current_direction
-
 enum direction{
 	UP,
 	UP_RIGHT,
@@ -16,29 +12,26 @@ enum direction{
 	IDLE
 }
 
+const SPEED = 80
+var current_direction
+
 var KEY_UP = false
 var KEY_DOWN = false
 var KEY_RIGHT = false
 var KEY_LEFT = false
 
 func _process(_delta: float) -> void:
-	pass
 	get_input()
 	set_direction()
 	move()
 
+
 func get_input():
-	if Input.is_action_pressed("move_up"): KEY_UP = true
-	else: KEY_UP = false
+	KEY_UP = is_key_pressed("move_up")
+	KEY_DOWN = is_key_pressed("move_down")
+	KEY_LEFT = is_key_pressed("move_left")
+	KEY_RIGHT = is_key_pressed("move_right")
 
-	if Input.is_action_pressed("move_down"): KEY_DOWN = true
-	else: KEY_DOWN = false
-
-	if Input.is_action_pressed("move_left"): KEY_LEFT = true
-	else: KEY_LEFT = false
-
-	if Input.is_action_pressed("move_right"): KEY_RIGHT = true
-	else: KEY_RIGHT = false
 
 func set_direction():
 	if KEY_UP:
@@ -92,6 +85,9 @@ func move():
 		
 	move_and_slide()
 
-
+# helper methods
 func cartesian_to_isometric(cartesian):
 	return Vector2(cartesian.x - cartesian.y, (cartesian.x + cartesian.y) / 2)
+
+func is_key_pressed(action_name: String) -> bool:
+	return Input.is_action_pressed(action_name)
