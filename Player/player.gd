@@ -21,18 +21,24 @@ var KEY_DOWN = false
 var KEY_RIGHT = false
 var KEY_LEFT = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
-	set_input()
+	get_input()
 	set_direction()
 	move()
 
-func set_input():
-	read_input(KEY_UP, "move_up")
-	read_input(KEY_DOWN, "move_down")
-	read_input(KEY_RIGHT, "move_right")
-	read_input(KEY_LEFT, "move_left")
+func get_input():
+	if Input.is_action_pressed("move_up"): KEY_UP = true
+	else: KEY_UP = false
 
+	if Input.is_action_pressed("move_down"): KEY_DOWN = true
+	else: KEY_DOWN = false
+
+	if Input.is_action_pressed("move_left"): KEY_LEFT = true
+	else: KEY_LEFT = false
+
+	if Input.is_action_pressed("move_right"): KEY_RIGHT = true
+	else: KEY_RIGHT = false
 
 func set_direction():
 	if KEY_UP:
@@ -51,7 +57,7 @@ func set_direction():
 		current_direction = direction.LEFT
 	elif KEY_RIGHT:
 		current_direction = direction.RIGHT
-	else: current_direction - direction.IDLE
+	else: current_direction = direction.IDLE
 
 
 func move():
@@ -89,8 +95,3 @@ func move():
 
 func cartesian_to_isometric(cartesian):
 	return Vector2(cartesian.x - cartesian.y, (cartesian.x + cartesian.y) / 2)
-
-
-func read_input(KEY: bool, action: StringName):
-	if Input.is_action_pressed(action): return true
-	else: return false
