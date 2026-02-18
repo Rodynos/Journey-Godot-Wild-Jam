@@ -59,13 +59,21 @@ func move():
 		direction.UP:
 			self.velocity = Vector2(0, -SPEED)
 			# $AnimatedSprite2D.play("up")
-		direction.UP_RIGHT: pass
-		direction.UP_LEFT: pass
+		direction.UP_RIGHT:
+			self.velocity = cartesian_to_isometric(Vector2(0, -SPEED))
+			# $AnimatedSprite2D.play("up_right")
+		direction.UP_LEFT:
+			self.velocity = cartesian_to_isometric(Vector2(-SPEED, 0))
+			# $AnimatedSprite2D.play("up_left")
 		direction.DOWN:
 			self.velocity = Vector2(0, SPEED)
 			# $AnimatedSprite2D.play("down")
-		direction.DOWN_RIGHT: pass
-		direction.DOWN_LEFT: pass
+		direction.DOWN_RIGHT:
+			self.velocity = cartesian_to_isometric(Vector2(SPEED, 0))
+			# $AnimatedSprite2D.play("down_right")
+		direction.DOWN_LEFT:
+			self.velocity = cartesian_to_isometric(Vector2(0, SPEED))
+			# $AnimatedSprite2D.play("down_right")
 		direction.LEFT:
 			self.velocity = Vector2(-SPEED, 0)
 			# $AnimatedSprite2D.play("left")
